@@ -1,0 +1,10 @@
+version: 3
+
+# Source .env file(s)
+dotenv: [.env]
+
+tasks:
+  render:
+    desc: Renders the project's templates using the Boilerplate CLI tool.
+    cmds:
+      - boilerplate --template-url . --output-folder "../Outputs/Bun-CLI-{{now | date "2006-01-02_03-41"}}"
