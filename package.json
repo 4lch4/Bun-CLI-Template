@@ -74,10 +74,10 @@
   "peerDependencies": {
     "typescript": "^5",
     "bun": "^1"
-  },
+  }
 
   {{ if .PublicAccess -}}
-  "publishConfig": {
+  ,"publishConfig": {
     "access": "public"
   }
   {{ end -}}
