@@ -1,0 +1,82 @@
+variables:
+  - name: PackageName
+    description: The name of the package
+    type: string
+
+  - name: BinName
+    description: The name of the binary exported by the package
+    type: string
+    default: "{{ .PackageName }}"
+
+  - name: PackageDescription
+    description: The description of the package
+    type: string
+    default: A CLI tool built using the Bun runtime and Commander
+
+  - name: PackageDisplayName
+    description: The display name of the package
+    type: string
+    default: "{{ .PackageName }}"
+
+  - name: RepoName
+    description: An optional alternative name for the repository, defaults to the project name
+    type: string
+    default: "{{ .PackageName }}"
+
+  - name: PackageKeywords
+    description: The keywords of the package
+    type: list
+    default:
+      - 4lch4
+      - bun
+      - cli
+      - commander
+
+  - name: PublicAccess
+    description: Whether the package is published as a public package
+    type: bool
+    default: true
+
+  - name: AddDayjs
+    description: Whether to add the Day.js dependency to the project
+    type: bool
+    default: true
+
+  - name: AddInquirer
+    description: Whether to add the Inquirer dependency to the project
+    type: bool
+    default: true
+
+  - name: AddOra
+    description: Whether to add the Ora dependency to the project
+    type: bool
+    default: true
+
+  - name: AddPicocolors
+    description: Whether to add the Picocolors dependency to the project
+    type: bool
+    default: true
+
+  - name: AddKnip
+    description: Whether to add the Knip devDependency to the project
+    type: bool
+    default: true
+
+hooks:
+  after:
+    # Install dependencies.
+    - command: bun
+      args: ["install"]
+      dir: "{{ outputFolder }}"
+
+    # Format the code w/ Prettier.
+    - command: bunx
+      args: ["prettier", "--write", "."]
+      dir: "{{ outputFolder }}"
+
+
+
+
+
+
+

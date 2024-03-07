@@ -1,0 +1,84 @@
+{
+  "name": "{{ .PackageName }}",
+  "displayName": "{{ .PackageDisplayName }}",
+  "version": "0.0.0",
+  "description": "{{ .PackageDescription }}",
+  "keywords": [
+    "4lch4",
+    "bun",
+    "cli",
+    "commander"
+  ],
+  "homepage": "https://github.com/4lch4/{{ .RepoName }}",
+  "bugs": {
+    "email": "bugs@4lch4.email",
+    "url": "https://github.com/4lch4/{{ .RepoName }}/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com/4lch4/{{ .RepoName }}.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "4lch4",
+    "email": "hey@4lch4.email",
+    "url": "https://4lch4.com"
+  },
+  "type": "module",
+  "module": "./dist/index.js",
+  "bin": {
+    "{{ .BinName }}": "./dist/index.js"
+  },
+  "files": [
+    "src",
+    "dist",
+    "package.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "bun build ./src/index.ts --target bun --outfile dist/index.js",
+    "lint": "prettier -c .",
+    "prepublishOnly": "bun run build",
+    "pretty": "prettier --write ."
+  },
+  "dependencies": {
+    "commander": "^12"
+
+    {{ if .AddDayjs -}}
+    ,"dayjs": "^1"
+    {{ end -}}
+
+    {{ if .AddInquirer -}}
+    ,"inquirer": "^9"
+    {{ end -}}
+
+    {{ if .AddOra -}}
+    ,"ora": "^8"
+    {{ end -}}
+
+    {{ if .AddPicocolors -}}
+    ,"picocolors": "^1"
+    {{ end -}}
+  },
+  "devDependencies": {
+    "@types/bun": "^1",
+    "prettier": "^3",
+    "prettier-plugin-organize-imports": "^3",
+    "prettier-plugin-packagejson": "^2"
+
+    {{ if .AddKnip -}}
+    ,"knip": "^5"
+    {{ end -}}
+  },
+  "peerDependencies": {
+    "typescript": "^5",
+    "bun": "^1"
+  },
+
+  {{ if .PublicAccess -}}
+  "publishConfig": {
+    "access": "public"
+  }
+  {{ end -}}
+}
