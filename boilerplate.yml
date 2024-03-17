@@ -18,11 +18,6 @@ variables:
     type: string
     default: "{{ .PackageName }}"
 
-  - name: RepoName
-    description: An optional alternative name for the repository, defaults to the project name
-    type: string
-    default: "{{ .PackageName }}"
-
   - name: PackageKeywords
     description: The keywords of the package
     type: list
@@ -37,33 +32,58 @@ variables:
     type: bool
     default: true
 
-  - name: AddDayjs
-    description: Whether to add the Day.js dependency to the project
-    type: bool
-    default: true
+  - name: RepoName
+    description: An optional alternative name for the repository, defaults to the project name
+    type: string
+    default: "{{ .PackageName }}"
 
-  - name: AddInquirer
-    description: Whether to add the Inquirer dependency to the project
-    type: bool
-    default: true
+  - name: PackageDependencies
+    description: The dependencies of the package
+    type: list
+    default:
+      - Day.js
+      - Inquirer
+      - Ora
+      - Picocolors
+      - Knip
 
-  - name: AddOra
-    description: Whether to add the Ora dependency to the project
-    type: bool
-    default: true
+  # - name: AddDayjs
+  #   description: Whether to add the Day.js dependency to the project
+  #   type: bool
+  #   default: true
 
-  - name: AddPicocolors
-    description: Whether to add the Picocolors dependency to the project
-    type: bool
-    default: true
+  # - name: AddInquirer
+  #   description: Whether to add the Inquirer dependency to the project
+  #   type: bool
+  #   default: true
 
-  - name: AddKnip
-    description: Whether to add the Knip devDependency to the project
-    type: bool
-    default: true
+  # - name: AddOra
+  #   description: Whether to add the Ora dependency to the project
+  #   type: bool
+  #   default: true
+
+  # - name: AddPicocolors
+  #   description: Whether to add the Picocolors dependency to the project
+  #   type: bool
+  #   default: true
+
+  # - name: AddKnip
+  #   description: Whether to add the Knip devDependency to the project
+  #   type: bool
+  #   default: true
+
+# Do not copy these files to the output folder.
+skip_files:
+  - path: Taskfile.yml
+  - path: README.md
 
 hooks:
   after:
+    # Rename template README to README.md
+    - command: mv
+      args: ["README.tmpl.md", "README.md"]
+      dir: "{{ outputFolder }}"
+
     # Install dependencies.
     - command: bun
       args: ["install"]
@@ -73,10 +93,3 @@ hooks:
     - command: bunx
       args: ["prettier", "--write", "."]
       dir: "{{ outputFolder }}"
-
-
-
-
-
-
-

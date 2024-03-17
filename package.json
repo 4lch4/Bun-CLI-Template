@@ -30,7 +30,6 @@
     "{{ .BinName }}": "./dist/index.js"
   },
   "files": [
-    "src",
     "dist",
     "package.json",
     "README.md",
@@ -45,19 +44,19 @@
   "dependencies": {
     "commander": "^12"
 
-    {{ if .AddDayjs -}}
+    {{ if has .PackageDependencies "Day.js" -}}
     ,"dayjs": "^1"
     {{ end -}}
 
-    {{ if .AddInquirer -}}
+    {{ if has .PackageDependencies "Inquirer" -}}
     ,"inquirer": "^9"
     {{ end -}}
 
-    {{ if .AddOra -}}
+    {{ if has .PackageDependencies "Ora" -}}
     ,"ora": "^8"
     {{ end -}}
 
-    {{ if .AddPicocolors -}}
+    {{ if has .PackageDependencies "Picocolors" -}}
     ,"picocolors": "^1"
     {{ end -}}
   },
@@ -67,7 +66,7 @@
     "prettier-plugin-organize-imports": "^3",
     "prettier-plugin-packagejson": "^2"
 
-    {{ if .AddKnip -}}
+    {{ if has .PackageDependencies "Knip" -}}
     ,"knip": "^5"
     {{ end -}}
   },
